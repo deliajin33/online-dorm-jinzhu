@@ -7,11 +7,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.delia.onlinedormselect.R;
 import com.example.delia.onlinedormselect.bean.RoomInfo;
-import com.example.delia.onlinedormselect.bean.StudentInfo;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -22,10 +23,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
+
 
 public class OneModeActivity extends Activity implements View.OnClickListener
 {
@@ -38,6 +42,12 @@ public class OneModeActivity extends Activity implements View.OnClickListener
     private TextView mBuilding1Name , mBuilding2Name, mBuilding3Name, mBuilding4Name, mBuilding5Name;
 
     private TextView mBuilding1,mBuilding2,mBuilding3,mBuilding4,mBuilding5;
+
+    private Spinner mSpinner;
+
+    private List<String> data_list;
+
+    private ArrayAdapter<String> arr_adapter;
 
     private TextView mVerify;
 
@@ -52,13 +62,9 @@ public class OneModeActivity extends Activity implements View.OnClickListener
             switch (msg.what)
             {
                 case UPDATE_ROOM_INFO:
-
                     updateRoomInfo((RoomInfo) msg.obj );
-
                     break;
-
                 default:
-
                     break;
             }
         }
@@ -74,6 +80,8 @@ public class OneModeActivity extends Activity implements View.OnClickListener
         sharedPreferences = getSharedPreferences("config" , MODE_PRIVATE);
 
         roomInfo = new RoomInfo();
+
+        data_list = new ArrayList<>();
 
         initView();
     }
@@ -96,9 +104,6 @@ public class OneModeActivity extends Activity implements View.OnClickListener
         mId = (TextView)findViewById(R.id.one_id);
         mGender = (TextView)findViewById(R.id.one_gender);
 
-        mVerify = (TextView)findViewById(R.id.one_verify);
-        mVerify.setOnClickListener(this);
-
         String name = sharedPreferences.getString("studentName" , "保密");
         String id = sharedPreferences.getString("studentId" , "0000000000");
         String gender = sharedPreferences.getString("studentGender" , "男");
@@ -119,6 +124,46 @@ public class OneModeActivity extends Activity implements View.OnClickListener
 
         final String address = "https://api.mysspku.com/index.php/V1/MobileCourse/getRoom?gender="+genderCode;
         queryInternet(address);
+
+        mSpinner = (Spinner)findViewById(R.id.one_spinner);
+
+        //数据
+
+        if(roomInfo.getFive() != null && !roomInfo.getFive().equals("0"))
+        {
+            data_list.add("5号楼");
+        }
+        if(roomInfo.getThirteen() != null && !roomInfo.getThirteen().equals("0"))
+        {
+            data_list.add("13号楼");
+        }
+        if(roomInfo.getFourteen() != null && !roomInfo.getFourteen().equals("0"))
+        {
+            data_list.add("14号楼");
+        }
+        if(roomInfo.getEight() != null && !roomInfo.getEight().equals("0"))
+        {
+            data_list.add("8号楼");
+        }
+        if(roomInfo.getNine() != null && !roomInfo.getNine().equals("0"))
+        {
+            data_list.add("9号楼");
+        }
+
+
+
+
+
+        //适配器
+        arr_adapter= new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data_list);
+        //设置样式
+        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //加载适配器
+        mSpinner.setAdapter(arr_adapter);
+
+        mVerify = (TextView)findViewById(R.id.one_verify);
+        mVerify.setOnClickListener(this);
+
     }
 
     public void queryInternet(final String address)
@@ -221,32 +266,45 @@ public class OneModeActivity extends Activity implements View.OnClickListener
 
     public void updateRoomInfo(RoomInfo roomInfo)
     {
+        mBuilding1Name.setText("5号楼");
+        mBuilding1.setText(roomInfo.getFive());
+        mBuilding2Name.setText("13号楼");
+        mBuilding2.setText(roomInfo.getThirteen());
+        mBuilding3Name.setText("14号楼");
+        mBuilding3.setText(roomInfo.getFourteen());
+        mBuilding4Name.setText("8号楼");
+        mBuilding4.setText(roomInfo.getEight());
+        mBuilding5Name.setText("9号楼");
+        mBuilding5.setText(roomInfo.getNine());
 
-        if(!roomInfo.getFive().equals("0"))
+        if(roomInfo.getFive() != null && !roomInfo.getFive().equals("0"))
         {
-            mBuilding1Name.setText("5号楼");
-            mBuilding1.setText(roomInfo.getFive());
+            data_list.add("5号楼");
         }
-        if(!roomInfo.getThirteen().equals("0"))
+        if(roomInfo.getThirteen() != null && !roomInfo.getThirteen().equals("0"))
         {
-            mBuilding2Name.setText("13号楼");
-            mBuilding2.setText(roomInfo.getThirteen());
+            data_list.add("13号楼");
         }
-        if(!roomInfo.getFourteen().equals("0"))
+        if(roomInfo.getFourteen() != null && !roomInfo.getFourteen().equals("0"))
         {
-            mBuilding3Name.setText("14号楼");
-            mBuilding3.setText(roomInfo.getFourteen());
+            data_list.add("14号楼");
         }
-        if(!roomInfo.getEight().equals("0"))
+        if(roomInfo.getEight() != null && !roomInfo.getEight().equals("0"))
         {
-            mBuilding4Name.setText("8号楼");
-            mBuilding4.setText(roomInfo.getEight());
+            data_list.add("8号楼");
         }
-        if(!roomInfo.getNine().equals("0"))
+        if(roomInfo.getNine() != null && !roomInfo.getNine().equals("0"))
         {
-            mBuilding5Name.setText("9号楼");
-            mBuilding5.setText(roomInfo.getNine());
+            data_list.add("9号楼");
         }
+
+        //适配器
+        arr_adapter= new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data_list);
+        //设置样式
+        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //加载适配器
+        mSpinner.setAdapter(arr_adapter);
+
     }
 
     @Override
