@@ -46,33 +46,20 @@
         android:layout_below="@+id/title"
         android:background="@drawable/radius_drawable_bg"
         android:padding="10dip"
-        android:layout_marginLeft="15dip"
-        android:layout_marginRight="15dip"
         android:layout_marginTop="30dp">
 
         <TableRow>
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:id="@+id/one_mode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                android:layout_alignParentLeft="true"
                 android:gravity="center_vertical"
-                android:text="姓名"
+                android:text="单人办理"
+                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
                 android:textColor="#FF9F9D9D"
                 android:textSize="16sp"
                 />
-            <TextView
-                android:id="@+id/pstu_name"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_weight="1"
-                android:layout_alignParentRight="true"
-                android:gravity="right"
-                android:text="姓名"
-                android:textColor="#FF9F9D9D"
-                android:textSize="16sp"
-                />
-
         </TableRow>
         <ImageView
             android:layout_width="match_parent"
@@ -84,27 +71,16 @@
 
         <TableRow>
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:id="@+id/two_mode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                android:layout_alignParentLeft="true"
                 android:gravity="center_vertical"
-                android:text="学号"
+                android:text="两人办理"
+                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
                 android:textColor="#FF9F9D9D"
                 android:textSize="16sp"
                 />
-            <TextView
-                android:id="@+id/pstu_id"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_weight="1"
-                android:layout_alignParentRight="true"
-                android:gravity="right"
-                android:text="学号"
-                android:textColor="#FF9F9D9D"
-                android:textSize="16sp"
-                />
-
         </TableRow>
         <ImageView
             android:layout_width="match_parent"
@@ -116,27 +92,16 @@
 
         <TableRow>
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:id="@+id/three_mode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                android:layout_alignParentLeft="true"
                 android:gravity="center_vertical"
-                android:text="性别"
+                android:text="三人办理"
+                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
                 android:textColor="#FF9F9D9D"
                 android:textSize="16sp"
                 />
-            <TextView
-                android:id="@+id/pstu_gender"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_weight="1"
-                android:layout_alignParentRight="true"
-                android:gravity="right"
-                android:text="性别"
-                android:textColor="#FF9F9D9D"
-                android:textSize="16sp"
-                />
-
         </TableRow>
         <ImageView
             android:layout_width="match_parent"
@@ -148,23 +113,13 @@
 
         <TableRow>
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:id="@+id/four_mode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                android:layout_alignParentLeft="true"
                 android:gravity="center_vertical"
-                android:text="校验码"
-                android:textColor="#FF9F9D9D"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:id="@+id/pstu_veriCode"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_weight="1"
-                android:layout_alignParentRight="true"
-                android:gravity="right"
-                android:text="校验码"
+                android:text="四人办理"
+                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
                 android:textColor="#FF9F9D9D"
                 android:textSize="16sp"
                 />
@@ -172,21 +127,6 @@
 
     </TableLayout>
 
-    <TextView
-        android:id="@+id/start_procedure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/table"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/text_bg"
-        android:gravity="center"
-        android:paddingBottom="5dip"
-        android:paddingLeft="15dip"
-        android:paddingRight="15dip"
-        android:paddingTop="5dip"
-        android:text="开始办理"
-        android:textColor="#FFB90F"
-        android:textSize="18sp" />
+
 
 </RelativeLayout>
