@@ -25,7 +25,10 @@
         <activity android:name=".dormitory.OneModeActivity" />
         <activity android:name=".dormitory.TwoModeActivity" />
         <activity android:name=".dormitory.ThreeModeActivity" />
-        <activity android:name=".dormitory.FourModeActivity"></activity>
+        <activity android:name=".dormitory.FourModeActivity" />
+        <activity android:name=".dormitory.DormSuccessActivity" />
+        <activity android:name=".dormitory.DormFailedActivity" />
+        <activity android:name=".dormitory.DormInfoActivity"></activity>
     </application>
 
 </manifest>

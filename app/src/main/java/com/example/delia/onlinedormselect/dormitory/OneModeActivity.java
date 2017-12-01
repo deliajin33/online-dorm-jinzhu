@@ -1,6 +1,7 @@
 package com.example.delia.onlinedormselect.dormitory;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,9 +19,13 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -35,13 +40,19 @@ public class OneModeActivity extends Activity implements View.OnClickListener
 {
     private static final int UPDATE_ROOM_INFO = 1;
 
+    private static final int REDIRECT = 2;
+
     private SharedPreferences sharedPreferences;
+
+    private String name, id ,gender;
 
     private TextView mName, mId, mGender;
 
     private TextView mBuilding1Name , mBuilding2Name, mBuilding3Name, mBuilding4Name, mBuilding5Name;
 
     private TextView mBuilding1,mBuilding2,mBuilding3,mBuilding4,mBuilding5;
+
+    private int building;
 
     private Spinner mSpinner;
 
@@ -52,6 +63,7 @@ public class OneModeActivity extends Activity implements View.OnClickListener
     private TextView mVerify;
 
     private int errcode = 1;
+    private int err_code = 1;
 
     private RoomInfo roomInfo = null;
 
@@ -63,6 +75,9 @@ public class OneModeActivity extends Activity implements View.OnClickListener
             {
                 case UPDATE_ROOM_INFO:
                     updateRoomInfo((RoomInfo) msg.obj );
+                    break;
+                case REDIRECT:
+                    redirect();
                     break;
                 default:
                     break;
@@ -104,9 +119,9 @@ public class OneModeActivity extends Activity implements View.OnClickListener
         mId = (TextView)findViewById(R.id.one_id);
         mGender = (TextView)findViewById(R.id.one_gender);
 
-        String name = sharedPreferences.getString("studentName" , "保密");
-        String id = sharedPreferences.getString("studentId" , "0000000000");
-        String gender = sharedPreferences.getString("studentGender" , "男");
+        name = sharedPreferences.getString("studentName" , "保密");
+        id = sharedPreferences.getString("studentId" , "0000000000");
+        gender = sharedPreferences.getString("studentGender" , "男");
 
         mName.setText(name);
         mId.setText(id);
@@ -149,10 +164,6 @@ public class OneModeActivity extends Activity implements View.OnClickListener
         {
             data_list.add("9号楼");
         }
-
-
-
-
 
         //适配器
         arr_adapter= new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data_list);
@@ -203,6 +214,9 @@ public class OneModeActivity extends Activity implements View.OnClickListener
                     //调用解析方法
                     parseJSON(jsonData);
 
+                    reader.close();
+                    in.close();
+
                     if(errcode == 0 && roomInfo.getFive() != null)
                     {
 
@@ -226,6 +240,7 @@ public class OneModeActivity extends Activity implements View.OnClickListener
                     {
                         con.disconnect();
                     }
+
                 }
 
             }
@@ -235,6 +250,124 @@ public class OneModeActivity extends Activity implements View.OnClickListener
 
     }
 
+    public void queryInternetByPost(final String address)
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run() {
+                //API接口
+                HttpURLConnection connection = null;
+                try
+                {
+                    URL url = new URL(address);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setConnectTimeout(5000);
+                    connection.setRequestMethod("POST");
+
+                    //数据准备
+                    int num = 1;
+                    //String data = "num="+num+"&stuid="+id+"&stu1id="+"&v1code="+"&stu2id="+"&v2code="+"&stu3id="+"&v3code="+"&buildingNo="+building;
+                    String data = "{\n" +
+                            "        \"num\":" + num + ",\n" +
+                            "        \"stuid\":" + id + ",\n" +
+                            "        \"stu1id\":" + ",\n" +
+                            "        \"v1code\":" + ",\n" +
+                            "        \"stu2id\":" + ",\n" +
+                            "        \"v2code\":" + ",\n" +
+                            "        \"stu3id\":" + ",\n" +
+                            "        \"v3code\":" + ",\n" +
+                            "        \"buildingNo\":" + building + "\n" +
+                            "    }\n" +
+                            "}";
+
+                    //至少要设置的两个请求头
+                    connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+                    connection.setRequestProperty("Content-Length", data.length()+"");
+
+                    connection.setDoOutput(true);
+                    OutputStream outputStream = connection.getOutputStream();
+                    outputStream.write(data.getBytes());
+
+                    int responseCode = connection.getResponseCode();
+                    Log.d("dormSelect" , String.valueOf(responseCode));
+
+                    InputStream in = connection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder response = new StringBuilder();
+
+                    String str;
+                    while ( (str = reader.readLine()) != null )
+                    {
+                        response.append(str);
+                    }
+                    String jsonData = response.toString();
+
+                    Log.d("dormSelect_post" , jsonData);
+                    //调用解析方法
+                    parseJSONByPost(jsonData);
+
+                    Log.d("dormSelect_err_code" , String.valueOf(err_code));
+
+//                    if(err_code == 0)
+//                    {
+//
+//                        Log.d("dormSelect" , "err_code");
+//                        //子线程与主线程的通信机制
+//                        Message msg = new Message();
+//                        msg.what = REDIRECT;
+//                        mHandler.sendMessage(msg);
+//                    }
+                    if(err_code == 0)
+                    {
+                        Intent intent = new Intent(OneModeActivity.this , DormSuccessActivity.class);
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(OneModeActivity.this , DormFailedActivity.class);
+                        startActivity(intent);
+                    }
+
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (Exception e)
+                {
+                    Log.d("dormSelect", "error");
+                    e.printStackTrace();
+                }
+                finally
+                {
+                    if (connection != null)
+                    {
+                        connection.disconnect();
+                    }
+                }
+
+            }
+        }).start();//将该线程加入资源等待队列
+
+    }
+
+
+    public void redirect()
+    {
+        if(err_code == 0)
+        {
+            Intent intent = new Intent(OneModeActivity.this , DormSuccessActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(OneModeActivity.this , DormFailedActivity.class);
+            startActivity(intent);
+        }
+    }
 
     private void parseJSON(String jsonData)
     {
@@ -242,19 +375,49 @@ public class OneModeActivity extends Activity implements View.OnClickListener
         {
             JSONTokener jsonParser = new JSONTokener(jsonData);
             JSONObject loginfos = (JSONObject) jsonParser.nextValue();
-            errcode=Integer.parseInt(loginfos.getString("errcode"));
-
-            String datas=loginfos.getString("data");
-            JSONTokener jsonParser_data = new JSONTokener(datas);
-            JSONObject room_data = (JSONObject) jsonParser_data.nextValue();
-
-            if(room_data.has("5")==true)
+            if(loginfos.has("errcode")==true)
             {
-                roomInfo.setFive(room_data.getString("5"));
-                roomInfo.setThirteen(room_data.getString("13"));
-                roomInfo.setFourteen(room_data.getString("14"));
-                roomInfo.setEight((room_data.getString("8")));
-                roomInfo.setNine(room_data.getString("9"));
+                errcode=Integer.parseInt(loginfos.getString("errcode"));
+            }
+            if(loginfos.has("error_code")==true)
+            {
+                err_code = Integer.parseInt(loginfos.getString("error_code"));
+
+            }
+            if(loginfos.has("data"))
+            {
+                String datas=loginfos.getString("data");
+                JSONTokener jsonParser_data = new JSONTokener(datas);
+                JSONObject room_data = (JSONObject) jsonParser_data.nextValue();
+
+                if(room_data.has("5")==true)
+                {
+                    roomInfo.setFive(room_data.getString("5"));
+                    roomInfo.setThirteen(room_data.getString("13"));
+                    roomInfo.setFourteen(room_data.getString("14"));
+                    roomInfo.setEight((room_data.getString("8")));
+                    roomInfo.setNine(room_data.getString("9"));
+                }
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void parseJSONByPost(String jsonData)
+    {
+        try
+        {
+            JSONTokener jsonParser = new JSONTokener(jsonData);
+            JSONObject loginfos = (JSONObject) jsonParser.nextValue();
+            if(loginfos.has("error_code")==true)
+            {
+                err_code = Integer.parseInt(loginfos.getString("errcode"));
+
             }
         }
         catch (Exception e)
@@ -312,6 +475,12 @@ public class OneModeActivity extends Activity implements View.OnClickListener
     {
         if(view.getId() == R.id.one_verify )
         {
+            building  = Integer.parseInt(String.valueOf(mSpinner.getSelectedItem()).replace("号楼",""));
+
+            final String address = "https://api.mysspku.com/index.php/V1/MobileCourse/SelectRoom";
+
+            queryInternetByPost(address);
+
 
         }
     }

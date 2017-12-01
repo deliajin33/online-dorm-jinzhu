@@ -7,50 +7,50 @@
 
     <!--ActionBar-->
     <RelativeLayout
-        android:id="@+id/two_title"
+        android:id="@+id/room_title"
         android:layout_width="match_parent"
         android:layout_height="45.0dp"
         android:background="#FFB90F"
         android:gravity="center_vertical">
 
         <ImageView
-            android:id="@+id/two_back_login"
+            android:id="@+id/room_back_login"
             android:layout_width="45.0dp"
             android:layout_height="45.0dp"
             android:src="@drawable/base_action_bar_back_normal"/>
         <ImageView
-            android:id="@+id/two_seperator"
+            android:id="@+id/room_seperator"
             android:layout_width="2.0dp"
             android:layout_height="40dp"
             android:layout_marginTop="2.0dp"
-            android:layout_toRightOf="@+id/two_back_login"
+            android:layout_toRightOf="@+id/room_back_login"
             android:background="#edad0d"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/two_seperator"
+            android:layout_toRightOf="@id/room_seperator"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:text='单人办理'
+            android:text='分配宿舍信息'
             android:textColor="#ffffffff"
             android:textSize="22.0sp" />
 
     </RelativeLayout>
 
     <ScrollView
-        android:id="@+id/two_scroll"
+        android:id="@+id/room_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/two_title">
+        android:layout_below="@+id/room_title">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             //第一个table
             <TableLayout
-                android:id="@+id/two_pInfo_table"
+                android:id="@+id/room_pInfo_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/radius_drawable_bg"
@@ -70,7 +70,7 @@
                         android:textSize="16sp"
                         />
                     <TextView
-                        android:id="@+id/two_name"
+                        android:id="@+id/room_name"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
@@ -86,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.8dp"
                     android:layout_marginTop="2.0dp"
-                    android:layout_toRightOf="@+id/two_back_login"
+                    android:layout_toRightOf="@+id/room_back_login"
                     android:background="#FFB90F"
                     />
 
@@ -102,7 +102,7 @@
                         android:textSize="16sp"
                         />
                     <TextView
-                        android:id="@+id/two_id"
+                        android:id="@+id/room_id"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.8dp"
                     android:layout_marginTop="2.0dp"
-                    android:layout_toRightOf="@+id/two_back_login"
+                    android:layout_toRightOf="@+id/room_back_login"
                     android:background="#FFB90F"
                     />
 
@@ -134,7 +134,7 @@
                         android:textSize="16sp"
                         />
                     <TextView
-                        android:id="@+id/two_gender"
+                        android:id="@+id/room_gender"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
@@ -148,10 +148,10 @@
             </TableLayout>
             //第二个table
             <TableLayout
-                android:id="@+id/two_rInfo_table"
+                android:id="@+id/room_rInfo_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/two_pInfo_table"
+                android:layout_below="@+id/room_pInfo_table"
                 android:background="@drawable/radius_drawable_bg"
                 android:padding="10dip"
                 android:layout_marginLeft="15dip"
@@ -160,24 +160,24 @@
 
                 <TableRow>
                     <TextView
-                        android:id="@+id/two_building1_name"
+                        android:id="@+id/room_status_tag"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
                         android:layout_alignParentLeft="true"
                         android:gravity="center_vertical"
-                        android:text="building1"
+                        android:text="状态"
                         android:textColor="#FF9F9D9D"
                         android:textSize="16sp"
                         />
                     <TextView
-                        android:id="@+id/two_building1"
+                        android:id="@+id/room_status"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
-                        android:text="building1"
+                        android:text="已完成办理"
                         android:textColor="#FF9F9D9D"
                         android:textSize="16sp"
                         />
@@ -187,30 +187,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.8dp"
                     android:layout_marginTop="2.0dp"
-                    android:layout_toRightOf="@+id/two_back_login"
+                    android:layout_toRightOf="@+id/room_back_login"
                     android:background="#FFB90F"
                     />
 
                 <TableRow>
                     <TextView
-                        android:id="@+id/two_building2_name"
+                        android:id="@+id/room_building_tag"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
                         android:layout_alignParentLeft="true"
                         android:gravity="center_vertical"
-                        android:text="building2"
+                        android:text="楼号"
                         android:textColor="#FF9F9D9D"
                         android:textSize="16sp"
                         />
                     <TextView
-                        android:id="@+id/two_building2"
+                        android:id="@+id/room_building"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
-                        android:text="building2"
+                        android:text="building"
                         android:textColor="#FF9F9D9D"
                         android:textSize="16sp"
                         />
@@ -220,215 +220,43 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.8dp"
                     android:layout_marginTop="2.0dp"
-                    android:layout_toRightOf="@+id/two_back_login"
+                    android:layout_toRightOf="@+id/room_back_login"
                     android:background="#FFB90F"
                     />
 
                 <TableRow>
                     <TextView
-                        android:id="@+id/two_building3_name"
+                        android:id="@+id/room_room_tag"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
                         android:layout_alignParentLeft="true"
                         android:gravity="center_vertical"
-                        android:text="building3"
+                        android:text="宿舍号"
                         android:textColor="#FF9F9D9D"
                         android:textSize="16sp"
                         />
                     <TextView
-                        android:id="@+id/two_building3"
+                        android:id="@+id/room_room"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
-                        android:text="building3"
-                        android:textColor="#FF9F9D9D"
-                        android:textSize="16sp"
-                        />
-                </TableRow>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:layout_marginTop="2.0dp"
-                    android:layout_toRightOf="@+id/two_back_login"
-                    android:background="#FFB90F"
-                    />
-
-                <TableRow>
-                    <TextView
-                        android:id="@+id/two_building4_name"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:layout_alignParentLeft="true"
-                        android:gravity="center_vertical"
-                        android:text="building4"
-                        android:textColor="#FF9F9D9D"
-                        android:textSize="16sp"
-                        />
-                    <TextView
-                        android:id="@+id/two_building4"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:layout_alignParentRight="true"
-                        android:gravity="right"
-                        android:text="building4"
-                        android:textColor="#FF9F9D9D"
-                        android:textSize="16sp"
-                        />
-
-                </TableRow>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:layout_marginTop="2.0dp"
-                    android:layout_toRightOf="@+id/two_back_login"
-                    android:background="#FFB90F"
-                    />
-
-                <TableRow>
-                    <TextView
-                        android:id="@+id/two_building5_name"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:layout_alignParentLeft="true"
-                        android:gravity="center_vertical"
-                        android:text="building5"
-                        android:textColor="#FF9F9D9D"
-                        android:textSize="16sp"
-                        />
-                    <TextView
-                        android:id="@+id/two_building5"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:layout_alignParentRight="true"
-                        android:gravity="right"
-                        android:text="building5"
+                        android:text="room"
                         android:textColor="#FF9F9D9D"
                         android:textSize="16sp"
                         />
                 </TableRow>
             </TableLayout>
-            //第三个table
-            <TableLayout
-                android:id="@+id/two_select_table"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/two_rInfo_table"
-                android:background="@drawable/radius_drawable_bg"
-                android:padding="10dip"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="15dip"
-                android:layout_marginTop="30dp">
 
-                <TableRow>
-                    <TextView
-                        android:id="@+id/two_select"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="请选择楼号"
-                        android:textColor="#FF9F9D9D"
-                        android:textSize="16sp"
-                        />
-                </TableRow>
-                <Spinner
-                    android:id="@+id/two_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/two_rInfo_table"
-                    android:textColor="#FF9F9D9D"
-                    android:background="@drawable/radius_drawable_bg"
-                    />
-            </TableLayout>
-
-            //第四个table
-            <TableLayout
-                android:id="@+id/two_roommateInfo_table"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/two_select_table"
-                android:background="@drawable/radius_drawable_bg"
-                android:padding="10dip"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="15dip"
-                android:layout_marginTop="30dp">
-
-                <TableRow>
-                    <TextView
-                        android:id="@+id/two_mate1_id_tag"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:layout_alignParentLeft="true"
-                        android:gravity="center_vertical"
-                        android:text="学号"
-                        android:textColor="#FF9F9D9D"
-                        android:textSize="16sp"
-                        />
-                    <EditText
-                        android:id="@+id/two_mate1_id"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:layout_alignParentRight="true"
-                        android:background="#ffffff"
-                        android:hint="学号"
-                        android:textColorHint="#FF9F9D9D"
-                        android:padding="5dip"
-                        android:textSize="16sp" />
-
-                </TableRow>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:layout_marginTop="2.0dp"
-                    android:layout_toRightOf="@+id/one_back_login"
-                    android:background="#FFB90F"
-                    />
-
-                <TableRow>
-                    <TextView
-                        android:id="@+id/two_mate1_veriCode_tag"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:layout_alignParentLeft="true"
-                        android:gravity="center_vertical"
-                        android:text="校验码"
-                        android:textColor="#FF9F9D9D"
-                        android:textSize="16sp"
-                        />
-
-                    <EditText
-                        android:id="@+id/two_mate1_veriCode"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:layout_alignParentRight="true"
-                        android:background="#ffffff"
-                        android:hint="校验码"
-                        android:textColorHint="#FF9F9D9D"
-                        android:padding="5dip"
-                        android:textSize="16sp" />
-
-                </TableRow>
-
-            </TableLayout>
 
             <TextView
-                android:id="@+id/two_verify"
+                android:id="@+id/room_verify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_below="@+id/two_roommateInfo_table"
+                android:layout_below="@+id/room_rInfo_table"
                 android:layout_marginTop="50dp"
                 android:background="@drawable/text_bg"
                 android:gravity="center"
@@ -439,9 +267,6 @@
                 android:text="确定"
                 android:textColor="#FFB90F"
                 android:textSize="18sp" />
-
-
-
 
         </RelativeLayout>
     </ScrollView>

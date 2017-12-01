@@ -276,6 +276,7 @@ public class MainActivity extends Activity implements View.OnClickListener
         editor.putString("studentName" , studentInfo.getName());
         editor.putString("studentId" , studentInfo.getId());
         editor.putString("studentGender" , studentInfo.getGender());
+        editor.putString("studentVeriCode" , studentInfo.getVeriCode());
         editor.commit();
 
         Log.d("dormSelect" , "test3");
