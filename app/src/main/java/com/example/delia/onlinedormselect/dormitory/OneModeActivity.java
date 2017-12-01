@@ -76,9 +76,6 @@ public class OneModeActivity extends Activity implements View.OnClickListener
                 case UPDATE_ROOM_INFO:
                     updateRoomInfo((RoomInfo) msg.obj );
                     break;
-                case REDIRECT:
-                    redirect();
-                    break;
                 default:
                     break;
             }
@@ -309,15 +306,6 @@ public class OneModeActivity extends Activity implements View.OnClickListener
 
                     Log.d("dormSelect_err_code" , String.valueOf(err_code));
 
-//                    if(err_code == 0)
-//                    {
-//
-//                        Log.d("dormSelect" , "err_code");
-//                        //子线程与主线程的通信机制
-//                        Message msg = new Message();
-//                        msg.what = REDIRECT;
-//                        mHandler.sendMessage(msg);
-//                    }
                     if(err_code == 0)
                     {
                         Intent intent = new Intent(OneModeActivity.this , DormSuccessActivity.class);
@@ -328,8 +316,6 @@ public class OneModeActivity extends Activity implements View.OnClickListener
                         Intent intent = new Intent(OneModeActivity.this , DormFailedActivity.class);
                         startActivity(intent);
                     }
-
-
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (ProtocolException e) {
@@ -352,21 +338,6 @@ public class OneModeActivity extends Activity implements View.OnClickListener
             }
         }).start();//将该线程加入资源等待队列
 
-    }
-
-
-    public void redirect()
-    {
-        if(err_code == 0)
-        {
-            Intent intent = new Intent(OneModeActivity.this , DormSuccessActivity.class);
-            startActivity(intent);
-        }
-        else
-        {
-            Intent intent = new Intent(OneModeActivity.this , DormFailedActivity.class);
-            startActivity(intent);
-        }
     }
 
     private void parseJSON(String jsonData)
@@ -414,7 +385,7 @@ public class OneModeActivity extends Activity implements View.OnClickListener
         {
             JSONTokener jsonParser = new JSONTokener(jsonData);
             JSONObject loginfos = (JSONObject) jsonParser.nextValue();
-            if(loginfos.has("error_code")==true)
+            if(loginfos.has("errcode")==true)
             {
                 err_code = Integer.parseInt(loginfos.getString("errcode"));
 

@@ -264,7 +264,7 @@
                 android:paddingLeft="15dip"
                 android:paddingRight="15dip"
                 android:paddingTop="5dip"
-                android:text="确定"
+                android:text="返回主页"
                 android:textColor="#FFB90F"
                 android:textSize="18sp" />
 

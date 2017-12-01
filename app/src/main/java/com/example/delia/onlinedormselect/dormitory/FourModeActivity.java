@@ -385,11 +385,6 @@ public class FourModeActivity extends Activity implements View.OnClickListener
                 HttpURLConnection connection = null;
                 try
                 {
-//                    SSLContext sc = SSLContext.getInstance("TLS");
-//                    sc.init(null, new TrustManager[]{new MyTrustManager()}, new SecureRandom());
-//                    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-//                    HttpsURLConnection.setDefaultHostnameVerifier(new MyHostnameVerifier());
-
                     URL url = new URL(address);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setConnectTimeout(5000);
@@ -414,8 +409,6 @@ public class FourModeActivity extends Activity implements View.OnClickListener
                     //至少要设置的两个请求头
                     connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
                     connection.setRequestProperty("Content-Length", data.length()+"");
-
-                    //post的方式提交实际上是留的方式提交给服务器
                     connection.setDoOutput(true);
                     OutputStream outputStream = connection.getOutputStream();
                     outputStream.write(data.getBytes());
@@ -423,20 +416,20 @@ public class FourModeActivity extends Activity implements View.OnClickListener
                     int responseCode = connection.getResponseCode();
                     Log.d("dormSelect" , String.valueOf(responseCode));
 
-//                    InputStream in = connection.getInputStream();
-//                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-//                    StringBuilder response = new StringBuilder();
-//
-//                    String str;
-//                    while ( (str = reader.readLine()) != null )
-//                    {
-//                        response.append(str);
-//                    }
-//                    String jsonData = response.toString();
-//
-//                    Log.d("dormSelect" , jsonData);
-//                    //调用解析方法
-//                    parseJSON(jsonData);
+                    InputStream in = connection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder response = new StringBuilder();
+
+                    String str;
+                    while ( (str = reader.readLine()) != null )
+                    {
+                        response.append(str);
+                    }
+                    String jsonData = response.toString();
+
+                    Log.d("dormSelect" , jsonData);
+                    //调用解析方法
+                    parseJSONByPost(jsonData);
 
                     if(err_code == 0)
                     {
@@ -506,6 +499,24 @@ public class FourModeActivity extends Activity implements View.OnClickListener
                 }
             }
 
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+    private void parseJSONByPost(String jsonData)
+    {
+        try
+        {
+            JSONTokener jsonParser = new JSONTokener(jsonData);
+            JSONObject loginfos = (JSONObject) jsonParser.nextValue();
+            if(loginfos.has("errcode")==true)
+            {
+                err_code = Integer.parseInt(loginfos.getString("errcode"));
+
+            }
         }
         catch (Exception e)
         {
