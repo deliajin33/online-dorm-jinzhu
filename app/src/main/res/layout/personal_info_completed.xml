@@ -185,6 +185,38 @@
             android:background="#FFB90F"
             />
 
+        <!--<TableRow>-->
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:text="房间"-->
+                <!--android:textColor="#FF9F9D9D"-->
+                <!--android:textSize="20.0sp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/pc_stu_room"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:gravity="right"-->
+                <!--android:text="已分配"-->
+                <!--android:textColor="#FF9F9D9D"-->
+                <!--android:textSize="20.0sp"-->
+                <!--/>-->
+
+        <!--</TableRow>-->
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.8dp"-->
+            <!--android:layout_marginTop="2.0dp"-->
+            <!--android:layout_toRightOf="@+id/pc_back"-->
+            <!--android:background="#FFB90F"-->
+            <!--/>-->
+
         <TableRow>
             <TextView
                 android:layout_width="0dp"
@@ -192,39 +224,7 @@
                 android:layout_weight="1"
                 android:layout_alignParentLeft="true"
                 android:gravity="center_vertical"
-                android:text="房间"
-                android:textColor="#FF9F9D9D"
-                android:textSize="20.0sp"
-                />
-            <TextView
-                android:id="@+id/pc_stu_room"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:layout_alignParentRight="true"
-                android:gravity="right"
-                android:text="未分配"
-                android:textColor="#FF9F9D9D"
-                android:textSize="20.0sp"
-                />
-
-        </TableRow>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:layout_marginTop="2.0dp"
-            android:layout_toRightOf="@+id/pc_back"
-            android:background="#FFB90F"
-            />
-
-        <TableRow>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:layout_alignParentLeft="true"
-                android:gravity="center_vertical"
-                android:text="楼号"
+                android:text="状态"
                 android:textColor="#FF9F9D9D"
                 android:textSize="20.0sp"
                 />
@@ -235,7 +235,7 @@
                 android:layout_weight="1"
                 android:layout_alignParentRight="true"
                 android:gravity="right"
-                android:text="未分配"
+                android:text="已完成办理"
                 android:textColor="#FF9F9D9D"
                 android:textSize="20.0sp"
                 />

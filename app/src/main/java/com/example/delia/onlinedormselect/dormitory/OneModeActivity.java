@@ -263,6 +263,7 @@ public class OneModeActivity extends Activity implements View.OnClickListener
                     connection.setRequestMethod("POST");
 
                     //数据准备
+                    //http://blog.csdn.net/u011579004/article/details/50751662
                     int num = 1;
                     //String data = "num="+num+"&stuid="+id+"&stu1id="+"&v1code="+"&stu2id="+"&v2code="+"&stu3id="+"&v3code="+"&buildingNo="+building;
                     String data = "{\n" +
@@ -282,6 +283,8 @@ public class OneModeActivity extends Activity implements View.OnClickListener
                     connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
                     connection.setRequestProperty("Content-Length", data.length()+"");
 
+                    // 设置是否向connection输出，因为这个是post请求，参数要放在
+                    // http正文内，因此需要设为true
                     connection.setDoOutput(true);
                     OutputStream outputStream = connection.getOutputStream();
                     outputStream.write(data.getBytes());

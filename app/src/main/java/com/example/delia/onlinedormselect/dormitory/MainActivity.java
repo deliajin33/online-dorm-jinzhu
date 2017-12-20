@@ -393,7 +393,6 @@ public class MainActivity extends Activity implements View.OnClickListener
 
     }
 
-
     private void parseJSON(String jsonData)
     {
         try
@@ -460,6 +459,7 @@ public class MainActivity extends Activity implements View.OnClickListener
     }
 
 }
+
 class MyTrustManager implements X509TrustManager
 {
     @Override

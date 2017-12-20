@@ -33,7 +33,7 @@
             android:layout_toRightOf="@id/four_seperator"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:text='单人办理'
+            android:text='四人办理'
             android:textColor="#ffffffff"
             android:textSize="22.0sp" />
 
@@ -146,17 +146,28 @@
                         />
                 </TableRow>
             </TableLayout>
+
+            <TextView
+                android:id="@+id/four_bed_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/four_pInfo_table"
+                android:layout_marginLeft="15dip"
+                android:layout_marginTop="30dp"
+                android:text="剩余床位信息"
+                android:textColor="#FFB90F"/>
+
             //第二个table
             <TableLayout
                 android:id="@+id/four_rInfo_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/four_pInfo_table"
+                android:layout_below="@+id/four_bed_info"
                 android:background="@drawable/radius_drawable_bg"
                 android:padding="10dip"
                 android:layout_marginLeft="15dip"
                 android:layout_marginRight="15dip"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="10dp">
 
                 <TableRow>
                     <TextView
@@ -349,17 +360,27 @@
                     />
             </TableLayout>
 
+            <TextView
+                android:id="@+id/four_mate_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/four_select_table"
+                android:layout_marginLeft="15dip"
+                android:layout_marginTop="30dp"
+                android:text="同住人信息"
+                android:textColor="#FFB90F"/>
+
             //第四个table
             <TableLayout
                 android:id="@+id/four_roommate1Info_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/four_select_table"
+                android:layout_below="@+id/four_mate_info"
                 android:background="@drawable/radius_drawable_bg"
                 android:padding="10dip"
                 android:layout_marginLeft="15dip"
                 android:layout_marginRight="15dip"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="10dp">
 
                 <TableRow>
                     <TextView

@@ -35,8 +35,8 @@ public class PInfoCompletedActivity extends Activity implements View.OnClickList
         mId = (TextView)findViewById(R.id.pc_stu_id);
         mGender = (TextView)findViewById(R.id.pc_stu_gender);
         mVeriCode = (TextView)findViewById(R.id.pc_stu_veriCode);
-        mRoom = (TextView)findViewById(R.id.pc_stu_room);
-        mBuilding = (TextView)findViewById(R.id.pc_stu_building);
+        //mRoom = (TextView)findViewById(R.id.pc_stu_room);
+        //mBuilding = (TextView)findViewById(R.id.pc_stu_building);
         mLocation = (TextView)findViewById(R.id.pc_stu_location);
         mGrade = (TextView)findViewById(R.id.pc_stu_grade);
         mLogout = (TextView)findViewById(R.id.pc_logout);

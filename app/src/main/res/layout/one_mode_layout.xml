@@ -146,17 +146,27 @@
                         />
                 </TableRow>
             </TableLayout>
+
+            <TextView
+                android:id="@+id/one_bed_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/one_pInfo_table"
+                android:layout_marginLeft="15dip"
+                android:layout_marginTop="30dp"
+                android:text="剩余床位信息"
+                android:textColor="#FFB90F"/>
             //第二个table
             <TableLayout
                 android:id="@+id/one_rInfo_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/one_pInfo_table"
+                android:layout_below="@+id/one_bed_info"
                 android:background="@drawable/radius_drawable_bg"
                 android:padding="10dip"
                 android:layout_marginLeft="15dip"
                 android:layout_marginRight="15dip"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="10dp">
 
                 <TableRow>
                     <TextView
