@@ -44,12 +44,13 @@ public class ThreeModeActivity extends Activity implements View.OnClickListener
 {
 
     private static final int UPDATE_ROOM_INFO = 1;
+    private static final int CHECK_GENDER=2;//新加的
 
     private SharedPreferences sharedPreferences;
 
     private ImageView backBtn;
 
-    private String name, id ,gender;
+    private String name, id, gender, gender_1, gender_2;
 
     private String id1, veriCode1, id2, veriCode2;
 
@@ -84,6 +85,9 @@ public class ThreeModeActivity extends Activity implements View.OnClickListener
             {
                 case UPDATE_ROOM_INFO:
                     updateRoomInfo((RoomInfo) msg.obj );
+                    break;
+                case CHECK_GENDER://新加的
+                    checkGender((String)msg.obj);
                     break;
                 default:
                     break;
@@ -204,6 +208,11 @@ public class ThreeModeActivity extends Activity implements View.OnClickListener
             @Override
             public void afterTextChanged(Editable editable)
             {
+                if(editable.toString().length()==10)
+                {
+                    String str="https://api.mysspku.com/index.php/V1/MobileCourse/getDetail?stuid="+editText1_id.getText();
+                    queryInternetforGender(str,1);
+                }
             }
         });
 
@@ -242,6 +251,12 @@ public class ThreeModeActivity extends Activity implements View.OnClickListener
             @Override
             public void afterTextChanged(Editable editable)
             {
+                if(editable.toString().length()==10)
+                {
+                    String str="https://api.mysspku.com/index.php/V1/MobileCourse/getDetail?stuid="+editText1_id.getText();
+                    queryInternetforGender(str,2);
+                }
+
             }
         });
 
@@ -559,6 +574,129 @@ public class ThreeModeActivity extends Activity implements View.OnClickListener
             Intent i = new Intent();
 
             finish();
+        }
+    }
+
+    //底下都是新加的
+    public void queryInternetforGender(final String address, final int mateNum)
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run() {
+                //API接口
+                HttpURLConnection con = null;
+                try
+                {
+                    SSLContext sc = SSLContext.getInstance("TLS");
+                    sc.init(null, new TrustManager[]{new MyTrustManager()}, new SecureRandom());
+                    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+                    HttpsURLConnection.setDefaultHostnameVerifier(new MyHostnameVerifier());
+
+                    URL url = new URL(address);
+                    con = (HttpsURLConnection) url.openConnection();
+
+                    con.setRequestMethod("GET");
+                    con.setConnectTimeout(8000);
+                    con.setReadTimeout(8000);
+
+                    InputStream in = con.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder response = new StringBuilder();
+
+                    String str;
+                    while ( (str = reader.readLine()) != null )
+                    {
+                        response.append(str);
+                    }
+                    String jsonData = response.toString();
+
+                    Log.d("dormSelect" , jsonData);
+                    //调用解析方法
+                    if(mateNum==1)
+                    {
+                        gender_1=parseJSONforGender(jsonData);
+                    }
+                    if(mateNum==2)
+                    {
+                        gender_2=parseJSONforGender(jsonData);
+                    }
+
+
+                    reader.close();
+                    in.close();
+                    Message msg = new Message();
+                    msg.what = CHECK_GENDER;
+                    if(mateNum==1)
+                    {
+                        msg.obj = gender_1;
+                    }
+                    if(mateNum==2)
+                    {
+                        msg.obj = gender_2;
+                    }
+                    mHandler.sendMessage(msg);
+
+                }
+                catch (Exception e)
+                {
+                    Log.d("dormSelect", "error");
+                    e.printStackTrace();
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.disconnect();
+                    }
+
+                }
+
+            }
+
+
+        }).start();//将该线程加入资源等待队列
+
+    }
+
+    private String parseJSONforGender(String jsonData)
+    {
+        String gender_json="";
+        try
+        {
+            JSONTokener jsonParser = new JSONTokener(jsonData);
+            JSONObject loginfos = (JSONObject) jsonParser.nextValue();
+            if(loginfos.has("data"))
+            {
+                String datas=loginfos.getString("data");
+                JSONTokener jsonParser_data = new JSONTokener(datas);
+                JSONObject stu_data = (JSONObject) jsonParser_data.nextValue();
+
+                if(stu_data.has("gender")==true)
+                {
+                    gender_json=stu_data.getString("gender");
+                }
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return gender_json;
+    }
+
+    public void checkGender(String str)
+    {
+        if(!str.equals(gender))
+        {
+            Toast.makeText(ThreeModeActivity.this,"性别不符或学号不存在", Toast.LENGTH_LONG).show();
+            editText1_id.setText("");
+            editText1_id.setHint("请输入合法学号");
+            mVerify.setEnabled(false);
+        }
+        else {
+            mVerify.setEnabled(true);
         }
     }
 }
