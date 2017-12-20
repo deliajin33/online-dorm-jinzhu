@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.delia.onlinedormselect.R;
 import com.example.delia.onlinedormselect.bean.RoomInfo;
@@ -44,6 +46,8 @@ public class FourModeActivity extends Activity implements View.OnClickListener
     private static final int UPDATE_ROOM_INFO = 1;
 
     private SharedPreferences sharedPreferences;
+
+    private ImageView backBtn;
 
     private String name, id ,gender;
 
@@ -105,6 +109,9 @@ public class FourModeActivity extends Activity implements View.OnClickListener
 
     public void initView()
     {
+        backBtn = (ImageView)findViewById(R.id.four_back_login);
+        backBtn.setOnClickListener(this);
+
         mBuilding1Name = (TextView)findViewById(R.id.four_building1_name);
         mBuilding2Name = (TextView)findViewById(R.id.four_building2_name);
         mBuilding3Name = (TextView)findViewById(R.id.four_building3_name);
@@ -573,13 +580,24 @@ public class FourModeActivity extends Activity implements View.OnClickListener
     {
         if(view.getId() == R.id.four_verify )
         {
-            building  = Integer.parseInt(String.valueOf(mSpinner.getSelectedItem()).replace("号楼",""));
+            if(id1!=null && veriCode1!=null && id2!=null && veriCode2!=null &id3!=null && veriCode3!=null)
+            {
+                building  = Integer.parseInt(String.valueOf(mSpinner.getSelectedItem()).replace("号楼",""));
 
-            final String address = "https://api.mysspku.com/index.php/V1/MobileCourse/SelectRoom";
+                final String address = "https://api.mysspku.com/index.php/V1/MobileCourse/SelectRoom";
 
-            queryInternetByPost(address);
+                queryInternetByPost(address);
+            }
+            else
+            {
+                Toast.makeText(FourModeActivity.this , "同住人信息不能为空" , Toast.LENGTH_LONG).show();
+            }
+        }
+        if(view.getId() == R.id.four_back_login)
+        {
+            Intent i = new Intent();
 
-
+            finish();
         }
     }
 }

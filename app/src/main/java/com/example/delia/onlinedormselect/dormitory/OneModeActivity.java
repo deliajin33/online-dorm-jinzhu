@@ -9,6 +9,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -43,6 +44,8 @@ public class OneModeActivity extends Activity implements View.OnClickListener
     private static final int REDIRECT = 2;
 
     private SharedPreferences sharedPreferences;
+
+    private ImageView backBtn;
 
     private String name, id ,gender;
 
@@ -100,6 +103,10 @@ public class OneModeActivity extends Activity implements View.OnClickListener
 
     public void initView()
     {
+        //返回按钮
+        backBtn = (ImageView)findViewById(R.id.one_back_login);
+        backBtn.setOnClickListener(this);
+
         mBuilding1Name = (TextView)findViewById(R.id.one_building1_name);
         mBuilding2Name = (TextView)findViewById(R.id.one_building2_name);
         mBuilding3Name = (TextView)findViewById(R.id.one_building3_name);
@@ -456,6 +463,12 @@ public class OneModeActivity extends Activity implements View.OnClickListener
             queryInternetByPost(address);
 
 
+        }
+        if(view.getId() == R.id.one_back_login)
+        {
+            Intent i = new Intent();
+
+            finish();
         }
     }
 }

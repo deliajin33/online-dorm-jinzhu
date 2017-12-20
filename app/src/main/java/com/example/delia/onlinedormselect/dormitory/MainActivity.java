@@ -168,13 +168,21 @@ public class MainActivity extends Activity implements View.OnClickListener
     @Override
     public void onClick(View v)
     {
-        // 计算出控件的高与宽
-        mWidth = mBtnLogin.getMeasuredWidth();
-        mHeight = mBtnLogin.getMeasuredHeight();
-        // 隐藏输入框
-        mName.setVisibility(View.INVISIBLE);
-        mPsw.setVisibility(View.INVISIBLE);
-        inputAnimator(mInputLayout, mWidth, mHeight);
+        if(stu_id != null && stu_psw != null)
+        {
+            // 计算出控件的高与宽
+            mWidth = mBtnLogin.getMeasuredWidth();
+            mHeight = mBtnLogin.getMeasuredHeight();
+            // 隐藏输入框
+            mName.setVisibility(View.INVISIBLE);
+            mPsw.setVisibility(View.INVISIBLE);
+            inputAnimator(mInputLayout, mWidth, mHeight);
+        }
+        else
+        {
+            Toast.makeText(MainActivity.this , "用户名或密码不能为空" , Toast.LENGTH_LONG).show();
+        }
+
 
     }
 
